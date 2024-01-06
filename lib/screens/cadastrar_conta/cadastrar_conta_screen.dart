@@ -1,4 +1,5 @@
 import 'package:app_financas_ui/models/conta.dart';
+import 'package:app_financas_ui/screens/home/home_screen.dart';
 import 'package:app_financas_ui/services/conta_service.dart';
 import 'package:flutter/material.dart';
 
@@ -6,7 +7,7 @@ class CadastroContaScreen extends StatelessWidget {
 
   final _nomeController = TextEditingController();
   final _valorController = TextEditingController();
-  ContaService cs = ContaService();
+  final ContaService cs = ContaService();
 
   CadastroContaScreen({super.key});
 
@@ -42,18 +43,21 @@ class CadastroContaScreen extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 20, bottom: 20),
-                  child: Container(
+                  child: SizedBox(
                     height: 40,
                     width: double.infinity,
                     child: ElevatedButton(
                       style: style,
                       onPressed: (){
-                        // print(_valorController.text);
+                        print("valor: ${_valorController.text}");
                         Conta novaConta = Conta(
                           nome: _nomeController.text,
                           valor: double.parse(_valorController.text)
                         );
                         cs.adicionarConta(novaConta);
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (_) => const HomeScreen())
+                        );
                       },
                       child: const Text(
                         'Cadastrar',

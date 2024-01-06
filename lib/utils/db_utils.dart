@@ -29,10 +29,16 @@ class DbUtil {
 
   static Future<void> insereDados(String table, Map<String, dynamic> dados) async {
     final db = await DbUtil.database();
-    await db.insert(
+    int qtdeRegistros = await db.insert(
       table,
       dados,
       conflictAlgorithm: sql.ConflictAlgorithm.replace
     );
+    print("$qtdeRegistros registros na database");
+  }
+
+  static Future<List<Map<String, dynamic>>> getDados(String tabela) async {
+    final db = await DbUtil.database();
+    return db.query(tabela);
   }
 }
