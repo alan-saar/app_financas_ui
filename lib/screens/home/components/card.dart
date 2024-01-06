@@ -13,8 +13,9 @@ Widget cardConta(BuildContext context, Conta conta) {
             color: Colors.blueAccent,
             boxShadow: const [
               BoxShadow(
-                // color: Color(0x100000),
-                color: Color.fromRGBO(0, 0, 0, 1.0),
+                // cor hexadecimal
+                color: Color(0x00100000),
+                // color: Color.fromRGBO(0, 0, 0, 1.0),
                 blurRadius: 8,
                 spreadRadius: 4,
                 offset: Offset(0.0, 0.7),
@@ -36,7 +37,7 @@ Widget cardConta(BuildContext context, Conta conta) {
                 ),
               ),
               const Positioned(
-                top: 14,
+                top: 65,
                 right: 12,
                 child: Text(
                   'Saldo em conta',
