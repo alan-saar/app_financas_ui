@@ -1,9 +1,12 @@
+import 'package:app_financas_ui/models/conta.dart';
+import 'package:app_financas_ui/services/conta_service.dart';
 import 'package:flutter/material.dart';
 
 class CadastroContaScreen extends StatelessWidget {
 
   final _nomeController = TextEditingController();
   final _valorController = TextEditingController();
+  ContaService cs = ContaService();
 
   CadastroContaScreen({super.key});
 
@@ -45,7 +48,12 @@ class CadastroContaScreen extends StatelessWidget {
                     child: ElevatedButton(
                       style: style,
                       onPressed: (){
-                        print(_valorController.text);
+                        // print(_valorController.text);
+                        Conta novaConta = Conta(
+                          nome: _nomeController.text,
+                          valor: double.parse(_valorController.text)
+                        );
+                        cs.adicionarConta(novaConta);
                       },
                       child: const Text(
                         'Cadastrar',
