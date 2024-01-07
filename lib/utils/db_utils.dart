@@ -25,6 +25,18 @@ class DbUtil {
         valor REAL
        )
     """);
+
+    db.execute("""
+      CREATE TABLE operacao(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nome VARCHAR(50), 
+        resumo VARCHAR(100),
+        tipo VARCHAR(20),
+        data DATETIME,
+        conta INTEGER FOREIGN KEY(conta) REFERENCES conta(id),
+        custo REAL
+      )    
+    """);
   }
 
   static Future<void> insereDados(String table, Map<String, dynamic> dados) async {
