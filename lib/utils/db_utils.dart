@@ -33,8 +33,9 @@ class DbUtil {
         resumo VARCHAR(100),
         tipo VARCHAR(20),
         data DATETIME,
-        conta INTEGER FOREIGN KEY(conta) REFERENCES conta(id),
-        custo REAL
+        conta INTEGER,
+        custo REAL,
+        FOREIGN KEY(conta) REFERENCES conta(id)
       )    
     """);
   }

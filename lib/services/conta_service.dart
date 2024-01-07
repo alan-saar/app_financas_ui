@@ -9,7 +9,7 @@ class ContaService {
     DbUtil.insereDados('conta', conta.toMap());
   }
 
-  Future<List> listaTodasContas() async {
+  Future<List> getAllContas() async {
     final dataList = await DbUtil.getDados('conta');
     _contaList = dataList.map((contas) => Conta.fromMap(contas)).toList();
     return _contaList;

@@ -140,7 +140,7 @@ class _CadastrarOperacaoScreenState extends State<CadastrarOperacaoScreen> {
   }
 
   Future<List> _getContas() async {
-    return await cs.listaTodasContas();
+    return await cs.getAllContas();
   }
 
   Future<void> _selectDate(BuildContext context) async {

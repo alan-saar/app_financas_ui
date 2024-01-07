@@ -1,5 +1,7 @@
-import 'package:app_financas_ui/screens/home/components/card.dart';
+import 'package:app_financas_ui/screens/home/components/card_conta.dart';
+import 'package:app_financas_ui/screens/home/components/card_operacao.dart';
 import 'package:app_financas_ui/services/conta_service.dart';
+import 'package:app_financas_ui/services/operacao_service.dart';
 import 'package:flutter/material.dart';
 
 class Body extends StatefulWidget {
@@ -11,12 +13,16 @@ class Body extends StatefulWidget {
 
 class _BodyState extends State<Body> {
   ContaService cs = ContaService();
+  OperacaoService os = OperacaoService();
   late Future<List> _carregaContas;
+  late Future<List> _carregaOperacoes;
   late List _contas;
+  late List _operacoes;
 
   @override
   void initState() {
     _carregaContas = _getContas();
+    _carregaOperacoes = _getOperacoes();
     super.initState();
 
   }
@@ -52,13 +58,67 @@ class _BodyState extends State<Body> {
                 }
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.only(left: 24, top: 30, bottom: 15, right: 22),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                   'Ultimas Operações',
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black,
+                    )
+                  ),
+                  InkWell(
+                    onTap: (){},
+                    child: const Text(
+                      'Ver Todos',
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.blue,
+                        )
+                    ),
+                  )
+                ],
+              )
+            ),
+            FutureBuilder(
+              future: _carregaOperacoes,
+              builder: (BuildContext context, AsyncSnapshot snapshot ) {
+                if(snapshot.hasData) {
+                  _operacoes = snapshot.data;
+                  return Expanded(
+                    child: ListView.builder(
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: _operacoes.length,
+                      padding: EdgeInsets.all(10),
+                      itemBuilder: (context, index) {
+                        return cardOperacao(context, index, _operacoes[index]);
+                      },
+                    ),
+                  );
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+              },
+            )
           ],
         )
     );
   }
 
   Future<List> _getContas() async {
-    return await cs.listaTodasContas();
+    return await cs.getAllContas();
+  }
+
+  Future<List> _getOperacoes() async {
+    return await os.getAllOperacoes();
   }
 
 }
