@@ -1,5 +1,7 @@
 import 'package:app_financas_ui/models/conta.dart';
+import 'package:app_financas_ui/models/operacao.dart';
 import 'package:app_financas_ui/services/conta_service.dart';
+import 'package:app_financas_ui/services/operacao_service.dart';
 import 'package:flutter/material.dart';
 import 'package:date_format/date_format.dart';
 
@@ -18,9 +20,10 @@ class _CadastrarOperacaoScreenState extends State<CadastrarOperacaoScreen> {
   final _nomeController = TextEditingController();
   final _resumoController = TextEditingController();
   final _custoController = TextEditingController();
-  final _tipoController = TextEditingController();
+  // final _tipoController = TextEditingController();
   final _dataController = TextEditingController();
   ContaService cs = ContaService();
+  OperacaoService os = OperacaoService();
   DateTime selectDate = DateTime.now();
 
   late Future<List> _carregaContas;
@@ -99,15 +102,26 @@ class _CadastrarOperacaoScreenState extends State<CadastrarOperacaoScreen> {
                           padding: const EdgeInsets.only(top: 20, bottom: 20),
                           child: Container(
                             height: 40,
-                            width: double.infinity, // máximo que ele conseguir de largura
-                              child: ElevatedButton( onPressed: (){},
+                              width: double.infinity, // máximo que ele conseguir de largura
+                              child: ElevatedButton(
+                                  onPressed: (){
+                                    Operacao novaOperacao = Operacao(
+                                        nome: _nomeController.text,
+                                        resumo: _resumoController.text,
+                                        tipo: widget.tipoOperacao,
+                                        data: selectDate.toString(),
+                                        conta: _contaSelecionada!.id!,
+                                        custo: double.parse(_custoController.text)
+                                    );
+                                    os.addOperacao(novaOperacao);
+                                  },
                                   style: ElevatedButton.styleFrom(
                                     backgroundColor: widget.tipoOperacao == 'entrada' ? Colors.blue : Colors.red,
                                   ),
                                   child: const Text(
                                       'Cadastrar'
                                   )
-                            )
+                              )
                           )
                         )
                       ],

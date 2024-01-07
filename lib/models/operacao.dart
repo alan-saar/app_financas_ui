@@ -16,13 +16,13 @@ class Operacao {
 
   Map<String, dynamic> toMap() {
     return {
-      'id': this.id,
-      'nome': this.nome,
-      'resumo': this.resumo,
-      'tipo': this.tipo,
-      'data': this.data,
-      'conta': this.conta,
-      'custo': this.custo,
+      'id': id,
+      'nome': nome,
+      'resumo': resumo,
+      'tipo': tipo,
+      'data': data,
+      'conta': conta,
+      'custo': custo,
     };
   }
 

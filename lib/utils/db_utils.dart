@@ -46,7 +46,7 @@ class DbUtil {
       dados,
       conflictAlgorithm: sql.ConflictAlgorithm.replace
     );
-    print("$qtdeRegistros registros na database");
+    print("[$table] -> $qtdeRegistros registros");
   }
 
   static Future<List<Map<String, dynamic>>> getDados(String tabela) async {
