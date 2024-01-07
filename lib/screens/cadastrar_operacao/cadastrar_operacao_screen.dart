@@ -1,6 +1,7 @@
 import 'package:app_financas_ui/models/conta.dart';
 import 'package:app_financas_ui/services/conta_service.dart';
 import 'package:flutter/material.dart';
+import 'package:date_format/date_format.dart';
 
 class CadastrarOperacaoScreen extends StatefulWidget {
   final String tipoOperacao;
@@ -20,10 +21,11 @@ class _CadastrarOperacaoScreenState extends State<CadastrarOperacaoScreen> {
   final _tipoController = TextEditingController();
   final _dataController = TextEditingController();
   ContaService cs = ContaService();
-  Conta? contaSelecionada;
+  DateTime selectDate = DateTime.now();
 
   late Future<List> _carregaContas;
   late List _contas;
+  Conta? _contaSelecionada;
 
   @override
   void initState() {
@@ -67,10 +69,31 @@ class _CadastrarOperacaoScreenState extends State<CadastrarOperacaoScreen> {
                           keyboardType: TextInputType.number,
                           decoration: const InputDecoration(labelText: 'Custo'),
                         ),
-                        TextFormField(
-                          controller: _dataController,
-                          keyboardType: TextInputType.text,
-                          decoration: const InputDecoration(labelText: 'Data'),
+                        GestureDetector(
+                          onTap: () => _selectDate(context),
+                          child: AbsorbPointer(
+                            child: TextFormField(
+                              controller: _dataController,
+                              decoration: InputDecoration(
+                                labelText: formatDate(selectDate, [dd,'/',mm,'/',yyyy])
+                              ),
+
+                            ),
+                          ),
+                        ),
+                        DropdownButtonFormField(
+                          value: _contaSelecionada,
+                          onChanged: (conta){
+                            setState(() {
+                              _contaSelecionada = conta as Conta?;
+                            });
+                          },
+                          items: _contas.map((conta){
+                            return DropdownMenuItem(
+                              value: conta,
+                              child: Text(conta.nome),
+                            );
+                          }).toList(),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(top: 20, bottom: 20),
@@ -104,5 +127,19 @@ class _CadastrarOperacaoScreenState extends State<CadastrarOperacaoScreen> {
 
   Future<List> _getContas() async {
     return await cs.listaTodasContas();
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectDate,
+        firstDate: DateTime(2024,01),
+        lastDate: DateTime(2025,12)
+    );
+    if (picked != null && picked != selectDate) {
+      setState(() {
+        selectDate = picked;
+      });
+    }
   }
 }
