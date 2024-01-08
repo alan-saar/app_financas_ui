@@ -54,4 +54,14 @@ class DbUtil {
     final db = await DbUtil.database();
     return db.query(tabela);
   }
+
+  static Future<List> getDataWhere(String table, String whereString, List<dynamic> whereArgs) async {
+    final db = await DbUtil.database();
+    final data = await db.query(
+      table,
+      where: whereString,
+      whereArgs: whereArgs,
+    );
+    return data.toList();
+  }
 }

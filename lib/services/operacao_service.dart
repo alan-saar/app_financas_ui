@@ -14,4 +14,11 @@ class OperacaoService {
     _operacaoList = dataList.map((operacoes) => Operacao.fromMap(operacoes)).toList();
     return _operacaoList;
   }
+
+  Future<List> getOperacoesConta(int contaId) async {
+    String whereString = "conta = ?";
+    List<dynamic> whereArgs = [contaId];
+    final dataList = await DbUtil.getDataWhere('operacao', whereString, whereArgs);
+    return dataList.map((operacoes) => Operacao.fromMap(operacoes)).toList();
+  }
 }

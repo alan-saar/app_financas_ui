@@ -15,4 +15,11 @@ class ContaService {
     return _contaList;
   }
 
+  Future<Conta> getConta(int id) async {
+    String whereString = "id = ?";
+    List<dynamic> whereArgs = [id];
+    final dataList = await DbUtil.getDataWhere('conta', whereString, whereArgs);
+    return Conta.fromMap(dataList.first);
+  }
+
 }

@@ -1,5 +1,6 @@
-import 'package:app_financas_ui/screens/home/components/card_conta.dart';
-import 'package:app_financas_ui/screens/home/components/card_operacao.dart';
+import 'package:app_financas_ui/screens/components/card_conta.dart';
+import 'package:app_financas_ui/screens/components/card_operacao.dart';
+import 'package:app_financas_ui/screens/operacao/operacao_screen.dart';
 import 'package:app_financas_ui/services/conta_service.dart';
 import 'package:app_financas_ui/services/operacao_service.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,6 @@ class _BodyState extends State<Body> {
     _carregaContas = _getContas();
     _carregaOperacoes = _getOperacoes();
     super.initState();
-
   }
 
   @override
@@ -72,7 +72,13 @@ class _BodyState extends State<Body> {
                     )
                   ),
                   InkWell(
-                    onTap: (){},
+                    onTap: (){
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (_) => const OperacaoScreen(),
+                        )
+                      );
+                    },
                     child: const Text(
                       'Ver Todos',
                         style: TextStyle(
@@ -94,7 +100,7 @@ class _BodyState extends State<Body> {
                     child: ListView.builder(
                       scrollDirection: Axis.vertical,
                       shrinkWrap: true,
-                      itemCount: _operacoes.length,
+                      itemCount: _operacoes.length > 4 ? 4 : _operacoes.length,
                       padding: EdgeInsets.all(10),
                       itemBuilder: (context, index) {
                         return cardOperacao(context, index, _operacoes[index]);

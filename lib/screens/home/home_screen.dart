@@ -1,4 +1,5 @@
 import 'package:app_financas_ui/screens/home/components/body.dart';
+import 'package:app_financas_ui/screens/home/components/speed_dial.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -6,8 +7,9 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Body(),
+    return Scaffold(
+      body: const Body(),
+      floatingActionButton: buildSpeedDial(context),
     );
   }
 }

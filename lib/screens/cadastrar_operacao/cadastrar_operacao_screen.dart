@@ -1,5 +1,6 @@
 import 'package:app_financas_ui/models/conta.dart';
 import 'package:app_financas_ui/models/operacao.dart';
+import 'package:app_financas_ui/screens/home/home_screen.dart';
 import 'package:app_financas_ui/services/conta_service.dart';
 import 'package:app_financas_ui/services/operacao_service.dart';
 import 'package:flutter/material.dart';
@@ -40,10 +41,10 @@ class _CadastrarOperacaoScreenState extends State<CadastrarOperacaoScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Cadastro de Operação',
+        title: Text(
+          widget.tipoOperacao == 'entrada' ? 'Nova Entrada' : 'Nova Saída',
         ),
-        backgroundColor: widget.tipoOperacao == 'entrada' ? Colors.blue : Colors.red,
+        backgroundColor: widget.tipoOperacao == 'entrada' ? Colors.green : Colors.red,
       ),
       body: FutureBuilder(
           future: _carregaContas,
@@ -114,9 +115,12 @@ class _CadastrarOperacaoScreenState extends State<CadastrarOperacaoScreen> {
                                         custo: double.parse(_custoController.text)
                                     );
                                     os.addOperacao(novaOperacao);
+                                    Navigator.of(context).push(
+                                        MaterialPageRoute(builder: (_) => const HomeScreen())
+                                    );
                                   },
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: widget.tipoOperacao == 'entrada' ? Colors.blue : Colors.red,
+                                    backgroundColor: widget.tipoOperacao == 'entrada' ? Colors.green : Colors.red,
                                   ),
                                   child: const Text(
                                       'Cadastrar'
