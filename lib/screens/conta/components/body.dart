@@ -2,6 +2,7 @@ import 'package:app_financas_ui/models/conta.dart';
 import 'package:app_financas_ui/models/operacao.dart';
 import 'package:app_financas_ui/screens/components/card_conta.dart';
 import 'package:app_financas_ui/screens/components/card_operacao.dart';
+import 'package:app_financas_ui/services/conta_rest_service.dart';
 import 'package:app_financas_ui/services/conta_sqliteandroid_service.dart';
 import 'package:app_financas_ui/services/operacao_sqliteandroid_service.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,8 @@ class Body extends StatefulWidget {
 class _BodyState extends State<Body> {
   OperacaoService os = OperacaoService();
   ContaService cs = ContaService();
+  ContaRestService csr = ContaRestService();
+
   late Future<List> _carregaOperacoes;
   late Future<Conta> _carregaConta;
   late Conta _conta;
@@ -101,7 +104,8 @@ class _BodyState extends State<Body> {
   }
 
   Future<Conta> _getConta(int id) async {
-    return await cs.getConta(id);
+    // return await cs.getConta(id); // SqLite android
+    return await csr.getContaId(id.toString());
   }
 
   Future<List> _getOperacoes(int id) async {

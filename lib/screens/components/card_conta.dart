@@ -10,6 +10,9 @@ Widget cardConta(BuildContext context, Conta conta) {
             MaterialPageRoute(builder: (_) => ContaScreen(id: conta.id!)),
         );
       },
+      onLongPress: (){
+        showAlertDialog(context, conta);
+      },
       child: Container(
         margin: const EdgeInsets.only(left: 10, right: 10),
         width: 250,
@@ -68,5 +71,34 @@ Widget cardConta(BuildContext context, Conta conta) {
             ]
         ),
       )
+  );
+}
+
+showAlertDialog(BuildContext context, Conta conta) {
+  Widget botaoRemover = TextButton(
+    onPressed: (){},
+    child: Text('Remover'),
+  );
+  Widget botaoCancelar = TextButton(
+    onPressed: (){
+      Navigator.of(context, rootNavigator: true).pop();
+    },
+    child: Text('cancelar'),
+  );
+
+  AlertDialog alerta = AlertDialog(
+    title: Text('Deseja remover essa conta?'),
+    content: Text('Essa ação não pode ser desfeita'),
+    actions: [
+      botaoRemover,
+      botaoCancelar,
+    ],
+  );
+
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alerta;
+    },
   );
 }
