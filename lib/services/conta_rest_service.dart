@@ -24,4 +24,13 @@ class ContaRestService {
       throw Exception("Ocorreu um erro ao buscar a conta selecionada. Statuscode: ${response.statusCode}");
     }
   }
+
+  Future<void> deleteConta(String id) async{
+    final Response response =  await RestUtil.deleteDataId('/contas', id);
+    if(response.statusCode == 204) {
+      print('Conta removida');
+    } else {
+      throw Exception("Erro ao remover conta. Statuscode: ${response.statusCode}");
+    }
+  }
 }

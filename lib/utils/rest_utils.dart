@@ -34,5 +34,13 @@ class RestUtil {
     return response;
   }
 
+  static Future<http.Response> deleteDataId(String uri, String id) async {
+    final response = await http.delete(
+      Uri.http(urlBase,"$uri/$id"),
+    );
+    print("DELETE $uri - ${response.statusCode}");
+    return response;
+  }
+
 
 }

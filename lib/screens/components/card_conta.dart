@@ -1,5 +1,6 @@
 import 'package:app_financas_ui/models/conta.dart';
 import 'package:app_financas_ui/screens/conta/conta_screen.dart';
+import 'package:app_financas_ui/services/conta_rest_service.dart';
 import 'package:flutter/material.dart';
 
 Widget cardConta(BuildContext context, Conta conta) {
@@ -75,12 +76,19 @@ Widget cardConta(BuildContext context, Conta conta) {
 }
 
 showAlertDialog(BuildContext context, Conta conta) {
+  ContaRestService crs = ContaRestService();
+
   Widget botaoRemover = TextButton(
-    onPressed: (){},
+    onPressed: (){
+      crs.deleteConta(conta.id.toString());
+      // fecha a tela de modal
+      Navigator.of(context, rootNavigator: true).pop();
+    },
     child: Text('Remover'),
   );
   Widget botaoCancelar = TextButton(
     onPressed: (){
+      // fecha a tela de modal
       Navigator.of(context, rootNavigator: true).pop();
     },
     child: Text('cancelar'),
