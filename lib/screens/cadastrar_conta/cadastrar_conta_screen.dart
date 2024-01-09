@@ -1,6 +1,6 @@
 import 'package:app_financas_ui/models/conta.dart';
 import 'package:app_financas_ui/screens/home/home_screen.dart';
-import 'package:app_financas_ui/services/conta_service.dart';
+import 'package:app_financas_ui/services/conta_sqliteandroid_service.dart';
 import 'package:flutter/material.dart';
 
 class CadastroContaScreen extends StatelessWidget {
