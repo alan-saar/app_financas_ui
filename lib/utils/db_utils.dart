@@ -64,4 +64,9 @@ class DbUtil {
     );
     return data.toList();
   }
+
+  static Future<void> executaSQL (String sql, List<dynamic> args) async {
+    final db = await DbUtil.database();
+    db.rawUpdate(sql, args);
+  }
 }

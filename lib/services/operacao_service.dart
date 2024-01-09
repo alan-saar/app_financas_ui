@@ -1,12 +1,16 @@
 import 'package:app_financas_ui/models/operacao.dart';
+import 'package:app_financas_ui/services/conta_service.dart';
 import 'package:app_financas_ui/utils/db_utils.dart';
 
 class OperacaoService {
+
+  ContaService cs = ContaService();
 
   List<Operacao> _operacaoList = [];
 
   void addOperacao(Operacao operacao) {
     DbUtil.insereDados("operacao", operacao.toMap());
+    cs.atualizaValorConta(operacao.conta, operacao.custo, operacao.tipo);
   }
 
   Future<List> getAllOperacoes() async{

@@ -22,4 +22,15 @@ class ContaService {
     return Conta.fromMap(dataList.first);
   }
 
+  void atualizaValorConta(int? id, double custo, String tipoOperacao) {
+    String sql;
+    if(tipoOperacao == 'entrada') {
+      sql = "UPDATE conta SET valor = valor + ? where id = ?";
+    } else {
+      sql = "UPDATE conta SET valor = valor - ? where id = ?";
+    }
+    List<dynamic> args = [custo, id];
+    DbUtil.executaSQL(sql, args);
+  }
+
 }
